@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable implements MustVerifyEmail{
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at',
+        'remember_token',
     ];
 
     /**
@@ -41,4 +43,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function register(Request $request)
+{
+    // Logika validasi dan pembuatan pengguna
+
+    $user = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'email_verified_at' => null, // Atur null untuk menandakan belum diverifikasi
+    ]);
+
+    // Kirim email verifikasi
+    Mail::to($user->email)->send(new VerifyEmail($user));
+
+    // Tampilkan pesan sukses pendaftaran dan instruksi untuk memeriksa email
+}
 }
