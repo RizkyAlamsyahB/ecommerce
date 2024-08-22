@@ -35,8 +35,11 @@
         <main>
             @yield('content')
             @auth
-            @include('layouts.partials.navbar')
-            @endauth
+
+                @include('layouts.partials.navbar')
+            
+        @endauth
+
         </main>
     </div>
 </body>
