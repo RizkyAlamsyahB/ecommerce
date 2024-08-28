@@ -6,11 +6,10 @@
         <div class="row h-100">
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
-                    <div class="auth-logo">
-                        <a href="{{ url('/') }}"><img src="{{ asset('template/dist/assets/compiled/png/logo.png') }}" alt="Logo" style="width: 200px; height: auto;"></a>
+                    <div class="auth-logo mb-3">
+                        <a href="{{ url('/') }}"><img src="{{ asset('template/dist/assets/compiled/png/logo_baru.png') }}" alt="Logo" style="width: 200px; height: auto;"></a>
                     </div>
-                    <h1 class="auth-title" style="color: #435EBE; font-weight: bold;">Sign Up</h1>
-                    <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
+                    <h1 class="auth-title" style="color: #27292C; font-weight: bold;">Sign Up</h1>
 
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
@@ -53,11 +52,11 @@
                                 <i class="bi bi-shield-lock"></i>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5" style="background-color: #435EBE; color: white;">Sign Up</button>
+                        <button type="submit" class="btn  btn-block btn-lg shadow-lg mt-5" style="background-color: #EB5633; color: white;">Sign Up</button>
                     </form>
 
                     <div class="text-center mt-5 text-lg fs-4" >
-                        <p class='text-gray-600'>Already have an account? <a href="{{ route('login') }}" class="font-bold" style="color: #435EBE;">Log in</a>.</p>
+                        <p class='text-gray-600'>Already have an account? <a href="{{ route('login') }}" class="font-bold" style="color: #EB5633;">Log in</a>.</p>
                     </div>
                 </div>
             </div>

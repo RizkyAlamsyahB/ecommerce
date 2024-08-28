@@ -2,20 +2,20 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Cart;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
-
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 
-class User extends Authenticatable implements MustVerifyEmail{
+class User extends Authenticatable implements MustVerifyEmail
+{
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -27,6 +27,9 @@ class User extends Authenticatable implements MustVerifyEmail{
         'name',
         'email',
         'password',
+        'address',
+        'phone',
+        'role',
         'email_verified_at',
         'remember_token',
     ];
@@ -49,20 +52,35 @@ class User extends Authenticatable implements MustVerifyEmail{
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
     public function register(Request $request)
-{
-    // Logika validasi dan pembuatan pengguna
+    {
+        // Logika validasi dan pembuatan pengguna
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'email_verified_at' => null, // Atur null untuk menandakan belum diverifikasi
+        ]);
 
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-        'email_verified_at' => null, // Atur null untuk menandakan belum diverifikasi
-    ]);
+        // Kirim email verifikasi
+        Mail::to($user->email)->send(new VerifyEmail($user));
 
-    // Kirim email verifikasi
-    Mail::to($user->email)->send(new VerifyEmail($user));
+        // Tampilkan pesan sukses pendaftaran dan instruksi untuk memeriksa email
+    }
 
-    // Tampilkan pesan sukses pendaftaran dan instruksi untuk memeriksa email
-}
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    // public function productReviews()
+    // {
+    //     return $this->hasMany(ProductReview::class);
+    // }
 }

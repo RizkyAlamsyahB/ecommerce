@@ -29,15 +29,17 @@
 </head>
 
 <body>
+
+
     <div id="app">
 
 
         <main>
             @yield('content')
             @auth
-
+            @if(auth()->user()->hasVerifiedEmail())
                 @include('layouts.partials.navbar')
-            
+            @endif
         @endauth
 
         </main>

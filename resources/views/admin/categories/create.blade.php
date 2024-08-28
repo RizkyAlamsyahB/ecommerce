@@ -1,21 +1,32 @@
 @extends('layouts.app')
-{{-- Menggunakan layout utama --}}
 
 @section('content')
-    {{-- Konten utama halaman --}}
+    @section('main-content')
+        @section('page-title')
+            <h3>Category</h3>
+        @endsection
 
-@section('main-content')
-    {{-- Konten spesifik halaman --}}
+        @section('breadcrumb')
+            Create Category
+        @endsection
 
-@section('page-title')
-    {{-- Judul halaman --}}
-    <h3>Category</h3>
+        <section class="row">
+            <div class="col-lg-12">
+                <div class="card" style="border-radius: 24px;">
+                    <div class="card-body">
 
-@section('breadcrumb')
-    {{-- Breadcrumb navigasi --}}
-    Create Category
-@endsection
-{{-- Isi Kontent Utama Di Sini --}}
+                        <form action="{{ route('categories.store') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama</label>
+                                <input type="text" name="name" class="form-control" id="name" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="border-radius: 10px;">Simpan</button>
+                        </form>
 
-
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endsection
 @endsection

@@ -1,14 +1,16 @@
-
 <div id="app">
     <div id="sidebar">
         <div class="sidebar-wrapper active">
             <div class="sidebar-header position-relative">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="logo">
-                        <a href="index.html"><img src="{{ asset('template/dist/assets/compiled/svg/logo.svg') }}"
-                                alt="Logo" srcset=""></a>
+                        <a href="/home">
+                            <img id="logo" src="{{ asset('template/dist/assets/compiled/png/logo_baru.png') }}"
+                            style="width: 100px; height: auto;">
+
+                            </a>
                     </div>
-                    <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
+                    {{-- <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                             aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20"
                             height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
@@ -40,7 +42,7 @@
                     </div>
                     <div class="sidebar-toggler  x">
                         <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="sidebar-menu">
@@ -53,12 +55,33 @@
                             <span>Dashboard</span>
                         </a>
                     </li>
+                    <li class="sidebar-item {{ request()->is('promotions*') ? 'active' : '' }}">
+                        <a href="{{ url('promotions') }}" class="sidebar-link">
+                            <i class="bi bi-percent"></i>
+                            <span>Promotion</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-title">Master Data</li>
+
+                    <li class="sidebar-item {{ request()->is('products*') ? 'active' : '' }}">
+                        <a href="{{ url('products') }}" class="sidebar-link">
+                            <i class="bi bi-bag-fill"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
 
                     <li class="sidebar-item {{ request()->is('categories*') ? 'active' : '' }}">
                         <a href="{{ url('categories') }}" class="sidebar-link">
                             <i class="bi bi-tags-fill"></i>
                             <span>Category</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item {{ request()->is('brands*') ? 'active' : '' }}">
+                        <a href="{{ url('brands') }}" class="sidebar-link">
+                            <i class="bi bi-c-circle-fill"></i>
+                            <span>Brands</span>
                         </a>
                     </li>
 
@@ -101,12 +124,14 @@
                                 <li>
                                     <h6 class="dropdown-header">Hello, {{ Auth::user()->name }}</h6>
                                 </li>
-                                <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i>
+                                <li><a class="dropdown-item" href="#"><i
+                                            class="icon-mid bi bi-person me-2"></i>
                                         My
                                         Profile</a></li>
                                 <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-gear me-2"></i>
                                         Settings</a></li>
-                                <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-wallet me-2"></i>
+                                <li><a class="dropdown-item" href="#"><i
+                                            class="icon-mid bi bi-wallet me-2"></i>
                                         Wallet</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
